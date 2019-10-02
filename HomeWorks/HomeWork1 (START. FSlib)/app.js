@@ -2,6 +2,8 @@
 
 const {StudentMaker, dirMaker} = require('./StudentMaker.js');
 
+const {PhotoAdder} = require('./ImgAdder.js');
+
 dirMaker('jscx-1800', 'jscx-2000');
 
 StudentMaker('jscx-1800', 'Mykola_Shydlovsky',

@@ -1,8 +1,14 @@
 let fs = require('fs');
 
-let streamRead = fs.createReadStream(./ProfileImgs/'Mykola.jpg')
 
-let streamWr
+exports.PhotoAdder = function (photo, putPhoto) {
+
+    fs.createReadStream(photo).pipe(fs.createWriteStream(putPhoto));
+
+    console.log('Photo is added');
+
+
+};
 
 
 
