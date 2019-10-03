@@ -1,6 +1,5 @@
 const express = require('express'); //require express
 const expHbs = require('express-handlebars'); //require handlebars
-
 const path = require('path'); //require path for working with different OC pathes
 
 
