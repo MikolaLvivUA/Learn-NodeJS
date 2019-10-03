@@ -1,6 +1,5 @@
 const express = require('express'); //require express
 const expHbs = require('express-handlebars'); //require handlebars
-
 const path = require('path'); //require path for working with different OC pathes
 
 
@@ -35,12 +34,12 @@ app.get('/register', (req, res) => {
     res.render('register')
 });
 
-app.get('/AddHouse', (req, res) => {
+app.get('/house', (req, res) => {
     res.render('AddHouse')
 });
 
 app.post('/register', (req, res) => {
-    let body = req.body;
+    const body = req.body;
 
     body["user_id"] = users.length+1;
     users.push(body);
@@ -50,8 +49,8 @@ app.post('/register', (req, res) => {
 });
 
 
-app.post('/AddHouse', (req, res) => {
-    let body = req.body;
+app.post('/house', (req, res) => {
+    const body = req.body;
 
     body["house_id"] = houses.length+1;
     houses.push(body);
@@ -77,7 +76,7 @@ app.get(`/house/:houseID`, (req, res) => {
 });
 
 app.post(`/search`, (req, res) => {
-   let body = req.body;
+   const body = req.body;
    houses.forEach((house)=>{
        house.city === body.searchingCity ? res.redirect(`/house/:${house.house_id}`) : res.json(`can't find`)
    })
