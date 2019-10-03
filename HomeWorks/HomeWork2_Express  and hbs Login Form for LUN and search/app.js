@@ -83,7 +83,7 @@ app.post(`/search`, (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-    let body = req.body;
+    const body = req.body;
     users.forEach((user) => {
         user.email === body.email && user.password === body.password ? res.redirect(`/user/:${user.user_id}`) : res.json('Sorry uncorrected email or password')
     })
