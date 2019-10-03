@@ -41,45 +41,46 @@ app.get('/house', (req, res) => {
 app.post('/register', (req, res) => {
     const body = req.body;
 
-    body["user_id"] = users.length+1;
+    body.user_id = users.length + 1;
     users.push(body);
     console.log(body);
 
-    res.render('register')
+    res.redirect('register')
 });
 
 
 app.post('/house', (req, res) => {
     const body = req.body;
 
-    body["house_id"] = houses.length+1;
+    body.house_id = houses.length + 1;
+
     houses.push(body);
     console.log(body);
 
-    res.render('AddHouse')
+    res.redirect(`/house/${body.house_id}`)
 });
 
 
 app.get(`/user/:userID`, (req, res) => {
 
-    for (let i = 0; i < users.length; i++) {
-        userID = users[i].user_id ? res.json(users[i]) : res.json('Sorry not found such user');
-    }
+    const foundUser = users.find(user => +req.params.userID === user.user_id);
+
+    res.json(foundUser)
 });
 
 
 app.get(`/house/:houseID`, (req, res) => {
 
-    for (let i = 0; i < houses.length; i++) {
-        houseID = houses[i].house_id ? res.json(houses[i]) : res.json('Sorry not found such house');
-    }
+    const foundHouse = houses.find(house => +req.params.houseID === house.house_id);
+
+    res.json(foundHouse)
 });
 
 app.post(`/search`, (req, res) => {
-   const body = req.body;
-   houses.forEach((house)=>{
-       house.city === body.searchingCity ? res.redirect(`/house/:${house.house_id}`) : res.json(`can't find`)
-   })
+    const body = req.body;
+    houses.forEach((house) => {
+        house.city === body.searchingCity ? res.redirect(`/house/:${house.house_id}`) : res.json(`can't find`)
+    })
 });
 
 app.post('/login', (req, res) => {
