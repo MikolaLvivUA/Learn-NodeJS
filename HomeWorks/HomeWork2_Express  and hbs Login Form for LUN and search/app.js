@@ -1,21 +1,17 @@
 const express = require('express'); //require express
-
 const expHbs = require('express-handlebars'); //require handlebars
 
 const path = require('path'); //require path for working with different OC pathes
 
 
-let users = []; //our global users array
-
-let houses = [];
+const users = []; //our global users array
+const houses = [];
 
 
 const app = express(); //create our server
 
 app.use(express.json()); //teach our express read JSON files
-
 app.use(express.urlencoded({extended: true})); //teach our express parse JSON files;
-
 app.use(express.static(path.join(__dirname, 'static'))); // teach our express works with static directory
 
 app.engine('.hbs', expHbs({ // setting our template engine
@@ -24,7 +20,6 @@ app.engine('.hbs', expHbs({ // setting our template engine
 }));
 
 app.set('view engine', '.hbs'); // our engine will be .hbs files
-
 app.set('views', path.join(__dirname, 'static')); // specify directory where are our .hbs files
 
 
@@ -45,10 +40,9 @@ app.get('/AddHouse', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-    let randomId = parseInt(Math.random() * (10000 - 1000) + 1000); // randomID creator
     let body = req.body;
 
-    body["user_id"] = randomId;
+    body["user_id"] = users.length+1;
     users.push(body);
     console.log(body);
 
@@ -57,26 +51,25 @@ app.post('/register', (req, res) => {
 
 
 app.post('/AddHouse', (req, res) => {
-    let randomId = parseInt(Math.random() * (10000 - 1000) + 1000); // randomID creator
     let body = req.body;
 
-    body["house_id"] = randomId;
+    body["house_id"] = houses.length+1;
     houses.push(body);
     console.log(body);
 
     res.render('AddHouse')
 });
 
-let userID;
-app.get(`/user/:${userID}`, (req, res) => {
+
+app.get(`/user/:userID`, (req, res) => {
 
     for (let i = 0; i < users.length; i++) {
         userID = users[i].user_id ? res.json(users[i]) : res.json('Sorry not found such user');
     }
 });
 
-let houseID;
-app.get(`/house/:${houseID}`, (req, res) => {
+
+app.get(`/house/:houseID`, (req, res) => {
 
     for (let i = 0; i < houses.length; i++) {
         houseID = houses[i].house_id ? res.json(houses[i]) : res.json('Sorry not found such house');
