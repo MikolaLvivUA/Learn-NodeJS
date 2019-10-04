@@ -38,10 +38,11 @@ app.get('/house', (req, res) => {
     res.render('AddHouse')
 });
 
+
 app.post('/register', (req, res) => {
     const body = req.body;
-
     body.user_id = users.length + 1;
+
     users.push(body);
     console.log(body);
 
@@ -51,7 +52,6 @@ app.post('/register', (req, res) => {
 
 app.post('/house', (req, res) => {
     const body = req.body;
-
     body.house_id = houses.length + 1;
 
     houses.push(body);
@@ -62,32 +62,30 @@ app.post('/house', (req, res) => {
 
 
 app.get(`/user/:userID`, (req, res) => {
-
     const foundUser = users.find(user => +req.params.userID === user.user_id);
 
-    res.json(foundUser)
+    foundUser ? res.json(foundUser) : res.status(404).end('USER DID NOT FIND');
 });
 
 
 app.get(`/house/:houseID`, (req, res) => {
-
     const foundHouse = houses.find(house => +req.params.houseID === house.house_id);
 
-    res.json(foundHouse)
+    foundHouse ? res.json(foundHouse) : res.status(404).end('HOUSE DID NOT FIND')
 });
 
 app.post(`/search`, (req, res) => {
     const body = req.body;
-    houses.forEach((house) => {
-        house.city === body.searchingCity ? res.redirect(`/house/:${house.house_id}`) : res.json(`can't find`)
-    })
+
+    const FoundHouse = houses.find(house => house.city === body.city);
+    FoundHouse ? res.redirect(`/house/${FoundHouse.house_id}`) : res.status(404).end('HOUSE DID NOT FIND')
 });
 
 app.post('/login', (req, res) => {
     const body = req.body;
-    users.forEach((user) => {
-        user.email === body.email && user.password === body.password ? res.redirect(`/user/:${user.user_id}`) : res.json('Sorry uncorrected email or password')
-    })
+
+    const FoundUser = users.find(user => user.email === body.email && user.password === body.password);
+    FoundUser ? res.redirect(`/user/${FoundUser.user_id}`) : res.status(404).end('USER DID NOT FIND');
 });
 
 
