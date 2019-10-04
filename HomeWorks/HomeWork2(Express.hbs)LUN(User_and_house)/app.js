@@ -40,24 +40,24 @@ app.get('/house', (req, res) => {
 
 
 app.post('/register', (req, res) => {
-    const body = req.body;
-    body.user_id = users.length + 1;
+    const newUser = req.body;
+    newUser.user_id = users.length + 1;
 
-    users.push(body);
-    console.log(body);
+    users.push(newUser);
+    console.log(newUser);
 
     res.redirect('register')
 });
 
 
 app.post('/house', (req, res) => {
-    const body = req.body;
-    body.house_id = houses.length + 1;
+    const newHouse = req.body;
+    newHouse.house_id = houses.length + 1;
 
-    houses.push(body);
-    console.log(body);
+    houses.push(newHouse);
+    console.log(newHouse);
 
-    res.redirect(`/house/${body.house_id}`)
+    res.redirect(`/house/${newHouse.house_id}`)
 });
 
 
@@ -75,16 +75,16 @@ app.get(`/house/:houseID`, (req, res) => {
 });
 
 app.post(`/search`, (req, res) => {
-    const body = req.body;
+    const searchingHouse = req.body;
 
-    const FoundHouse = houses.find(house => house.city === body.city);
+    const FoundHouse = houses.find(house => house.city === searchingHouse.city);
     FoundHouse ? res.redirect(`/house/${FoundHouse.house_id}`) : res.status(404).end('HOUSE DID NOT FIND')
 });
 
 app.post('/login', (req, res) => {
-    const body = req.body;
+    const loginUser = req.body;
 
-    const FoundUser = users.find(user => user.email === body.email && user.password === body.password);
+    const FoundUser = users.find(user => user.email === loginUser.email && user.password === loginUser.password);
     FoundUser ? res.redirect(`/user/${FoundUser.user_id}`) : res.status(404).end('USER DID NOT FIND');
 });
 
