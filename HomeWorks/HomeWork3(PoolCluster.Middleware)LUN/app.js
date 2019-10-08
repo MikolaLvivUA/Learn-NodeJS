@@ -39,7 +39,9 @@ app.get(`/houses/:houseID`, houseMiddleware.presentHouseCheck,house.getHouseById
 app.post('/houses', houseMiddleware.checkNewHouseValidity, house.createNewHouse);
 app.post(`/search`, houseMiddleware.searchHouseCheck, house.searchHouse);
 //USER PATCH
-// app.patch('/users/:userID', userMiddleware.presentUserCheck, userMiddleware.checkNewUserValidity, user.updateUser);
+app.post('/user', userMiddleware.checkUpdateValidity, userMiddleware.checkUpdUserPresent, user.updateUser);
+//HOUSE PATCH
+app.post('/house', houseMiddleware.checkUpdateHouseValidity, houseMiddleware.checkUpdHousePresent, house.updateHouse);
 //404
 app.all('*', render404.render404Page);
 

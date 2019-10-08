@@ -6,7 +6,7 @@ module.exports = async (req, res, next) => {
 
       const {email, password} = req.body;
 
-      const query = `SELECT * FROM user WHERE email LIKE '${email}' AND password LIKE '${password}'`;
+      const query = `SELECT * FROM user WHERE email = '${email}' AND password = '${password}'`;
       const [findingUser] = await provider.promise().query(query);
 
       if(!findingUser.length){
