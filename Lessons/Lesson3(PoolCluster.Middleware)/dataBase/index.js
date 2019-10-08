@@ -1,0 +1,1 @@
+module.exports.provider = require('./dataBase.provider'); // експортуєм нашу функцію ще вище
