@@ -27,6 +27,7 @@ app.get('/', renderPage.renderMainPage);
 app.get('/login', renderPage.renderLoginPage);
 app.get('/register', renderPage.renderRegisterPage);
 app.get('/house', renderPage.renderAddHousePage);
+app.get('/update', renderPage.renderUpdatePage);
 //USER GET
 app.get(`/users/:userID`, userMiddleware.presentUserCheck, user.getUserById);
 //USER POST
@@ -37,6 +38,8 @@ app.get(`/houses/:houseID`, houseMiddleware.presentHouseCheck,house.getHouseById
 //HOUSE POST
 app.post('/houses', houseMiddleware.checkNewHouseValidity, house.createNewHouse);
 app.post(`/search`, houseMiddleware.searchHouseCheck, house.searchHouse);
+//USER PATCH
+// app.patch('/users/:userID', userMiddleware.presentUserCheck, userMiddleware.checkNewUserValidity, user.updateUser);
 //404
 app.all('*', render404.render404Page);
 
