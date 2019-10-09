@@ -1,8 +1,6 @@
 const {provider} = require('../../dataBase');
 
 module.exports = async (req, res, next) =>{
-
-
     try {
         const {houseID} = req.body;
         const query = `SELECT * FROM house WHERE id = ${houseID}`;
@@ -16,9 +14,7 @@ module.exports = async (req, res, next) =>{
         next()
 
     } catch (e) {
-
         res.status(400).json(e.message)
-
     }
 };
 

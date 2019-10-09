@@ -1,7 +1,6 @@
 const {provider} = require('../../dataBase');
 
 module.exports = async (req, res, next) => {
-
     try {
         const {userID} = req.params;
         const query = `SELECT * FROM user WHERE id = ${userID}`;

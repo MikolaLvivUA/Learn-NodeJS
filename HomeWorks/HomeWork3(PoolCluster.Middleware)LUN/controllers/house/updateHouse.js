@@ -1,6 +1,5 @@
 const { provider } = require('../../dataBase');
 
-
 module.exports = async (req, res) => {
     try {
         console.log(provider);
@@ -9,9 +8,7 @@ module.exports = async (req, res) => {
 
         const [updatedHouse] = await provider.promise().query(query, [square, city, price]);
 
-        console.log(updatedHouse);
-
-        res.redirect(`users/${houseID}`)
+        res.redirect(`houses/${houseID}`)
     } catch (e) {
         res.json(e.message)
     }

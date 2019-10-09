@@ -1,7 +1,6 @@
 const {houseValidator} = require('../../validators');
 //Create validation middleware
 module.exports = (req, res, next) => {
-
     try {
         const newHouseData = req.body;
 
