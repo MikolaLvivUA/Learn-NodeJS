@@ -17,30 +17,11 @@ app.set('view engine', '.hbs'); // our engine will be .hbs files
 app.set('views', path.join(__dirname, 'static')); // specify directory where are our .hbs files
 
 //MODULES
-
-const { renderPage, render404 , user, house} = require ('./controllers');
-const { userMiddleware, houseMiddleware } = require('./middleware');
-
-//GET
-app.get('/', renderPage.renderMainPage);
-app.get('/login', renderPage.renderLoginPage);
-app.get('/register', renderPage.renderRegisterPage);
-app.get('/house', renderPage.renderAddHousePage);
-app.get('/update', renderPage.renderUpdatePage);
-//USER GET
-app.get(`/users/:userID`, userMiddleware.presentUserCheck, user.getUserById);
-//USER POST
-app.post('/newUser', userMiddleware.checkNewUserValidity, user.registerNewUser);
-app.post('/users', userMiddleware.checkLoginValidity ,user.userLogin);
-//HOUSE GET
-app.get(`/houses/:houseID`, houseMiddleware.presentHouseCheck,house.getHouseById);
-//HOUSE POST
-app.post('/houses', houseMiddleware.checkNewHouseValidity, house.createNewHouse);
-app.post(`/search`, houseMiddleware.searchHouseCheck, house.searchHouse);
-//USER PATCH
-app.post('/user', userMiddleware.checkUpdateValidity, userMiddleware.checkUpdUserPresent, user.updateUser);
-//HOUSE PATCH
-app.post('/house', houseMiddleware.checkUpdateHouseValidity, houseMiddleware.checkUpdHousePresent, house.updateHouse);
+const {render404} = require ('./controllers');
+const {usersRouter, housesRouter} = require('./router');
+//ROUTES
+app.use('/users', usersRouter);
+app.use('/houses', housesRouter);
 //404
 app.all('*', render404.render404Page);
 
