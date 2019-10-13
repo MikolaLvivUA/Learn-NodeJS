@@ -1,13 +1,17 @@
-const { provider } = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
 module.exports = async (req, res, next) => {
     try {
             const {city} = req.body;
-            const query = `SELECT * FROM house WHERE city = '${city}'`;
+            const HouseModel = dataBase.getModel('House');
 
-            const [findingHouses] = await provider.promise().query(query);
+            const findingHouses = await HouseModel.findAll({
+                where: {
+                    city
+                },
+            });
 
-            if(!findingHouses){
+        if(!findingHouses){
                 throw new Error('Not found any houses')
             }
 
@@ -16,8 +20,4 @@ module.exports = async (req, res, next) => {
     }catch (e) {
             res.status(404).json(e.message);
         }
-
-
-
-
 };

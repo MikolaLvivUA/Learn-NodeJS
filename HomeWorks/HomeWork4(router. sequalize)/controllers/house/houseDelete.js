@@ -3,19 +3,16 @@ const dataBase = require('../../dataBase').getInstance();
 module.exports = async (req, res) => {
     try {
         const {houseID} = req.params;
-        const updatingData = req.body;
         const HouseModel = dataBase.getModel('House');
 
-        await HouseModel.update(updatingData, {
+        HouseModel.destroy({
             where: {
                 id: houseID
             }
         });
 
-
-        res.redirect(`/houses/${houseID}`)
-    } catch (e) {
-        res.json(e.message)
+        res.json(`House id:${houseID} has been deleted`)
+    }catch (e) {
+        res.status(400).json(e.message)
     }
-
 };

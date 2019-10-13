@@ -1,16 +1,17 @@
-const {provider} = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
 module.exports = async (req, res, next) => {
     try {
         const {houseID} = req.params;
-        const query = `SELECT * FROM house WHERE id = ${houseID}`;
-        const [findingHouse] = await provider.promise().query(query);
+        const HouseModel = dataBase.getModel('House');
 
-        if (!findingHouse.length ){
+        const findingHouse = await HouseModel.findByPk(houseID);
+
+        if (!findingHouse ){
             throw new Error(`Bad request`)
         }
 
-        [req.house] = findingHouse;
+        req.house = findingHouse;
 
         next();
 

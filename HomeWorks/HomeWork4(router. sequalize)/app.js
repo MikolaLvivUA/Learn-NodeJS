@@ -4,6 +4,9 @@ const path = require('path'); //require path for working with different OC pathe
 
 const app = express(); //create our server
 
+const dataBase = require('./dataBase').getInstance();
+dataBase.setModels();
+
 app.use(express.json()); //teach our express read JSON files
 app.use(express.urlencoded({extended: true})); //teach our express parse JSON files;
 app.use(express.static(path.join(__dirname, 'static'))); // teach our express works with static directory

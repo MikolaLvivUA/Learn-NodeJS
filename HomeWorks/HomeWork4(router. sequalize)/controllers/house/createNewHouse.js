@@ -1,13 +1,13 @@
-const { provider } = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
 module.exports = async (req, res) => {
     try {
-        const {square, city, price} = req.body;
-        const query = (`INSERT INTO house (square, city, price) VALUES (?, ?, ?)`);
+        const newHouseData = req.body;
+        const HouseModel = dataBase.getModel('House');
 
-        await provider.promise().query(query, [square, city, price]);
+        await HouseModel.create(newHouseData);
 
-        res.redirect('/');
+        res.json('house has been created');
     }catch (e) {
         res.json(e.message)
     }

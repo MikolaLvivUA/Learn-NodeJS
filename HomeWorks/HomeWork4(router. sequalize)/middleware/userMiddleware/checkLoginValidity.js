@@ -1,18 +1,24 @@
 
-const {provider} = require('../../dataBase');
+const dataBase = require('../../dataBase').getInstance();
 
 module.exports = async (req, res, next) => {
   try {
       const {email, password} = req.body;
+      const UserModel = dataBase.getModel('User');
 
-      const query = `SELECT * FROM user WHERE email = '${email}' AND password = '${password}'`;
-      const [findingUser] = await provider.promise().query(query);
+      const findingUser = await UserModel.findOne({
+            where: {
+                email,
+                password
+              },
+            attributes:['id']
+      });
 
-      if(!findingUser.length){
+      if(!findingUser){
           throw new Error('Incorrect password or email')
       }
 
-      [req.user] = findingUser;
+      req.user = findingUser.dataValues;
       next()
 
   }  catch (e) {

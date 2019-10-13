@@ -3,17 +3,16 @@ const dataBase = require('../../dataBase').getInstance();
 module.exports = async (req, res) => {
     try {
         const {userID} = req.params;
-        const updatingData = req.body;
         const UserModel = dataBase.getModel('User');
 
-        await UserModel.update(updatingData, {
+        UserModel.destroy({
             where: {
                 id: userID
             }
         });
 
-        res.redirect(`/users/${userID}`)
-    } catch (e) {
-        res.json(e.message)
+        res.json(`User id:${userID} has been deleted`)
+    }catch (e) {
+        res.status(400).json(e.message)
     }
 };
