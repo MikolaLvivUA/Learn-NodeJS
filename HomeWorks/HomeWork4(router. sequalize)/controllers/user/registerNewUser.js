@@ -5,9 +5,9 @@ module.exports = async (req, res) => {
         const creatingUser = req.body;
         const UserModel = dataBase.getModel('User');
 
-        await UserModel.create(creatingUser);
+        const createdUser = await UserModel.create(creatingUser);
 
-        res.json('Your user has been registered please login in');
+        res.json(`Your user with id:${createdUser.id} has been registered please login in`);
     }catch (e) {
         res.json(e.message)
     }
