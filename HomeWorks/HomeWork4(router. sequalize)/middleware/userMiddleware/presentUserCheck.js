@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
         const foundUser = await UserModel.findByPk(userID);
 
-        if (!foundUser){
+        if (!foundUser) {
             throw new Error(`User id:${userID} is not present`)
         }
 

@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         });
 
         res.json(`House id:${houseID} has been deleted`)
-    }catch (e) {
+    } catch (e) {
         res.status(400).json(e.message)
     }
 };

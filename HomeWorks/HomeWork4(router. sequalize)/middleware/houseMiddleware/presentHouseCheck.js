@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
 
         const findingHouse = await HouseModel.findByPk(houseID);
 
-        if (!findingHouse ){
+        if (!findingHouse) {
             throw new Error(`Bad request`)
         }
 

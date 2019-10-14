@@ -21,10 +21,11 @@ app.set('views', path.join(__dirname, 'static')); // specify directory where are
 
 //MODULES
 const {render404} = require ('./controllers');
-const {usersRouter, housesRouter} = require('./router');
+const {usersRouter, housesRouter, authRouter} = require('./router');
 //ROUTES
 app.use('/users', usersRouter);
 app.use('/houses', housesRouter);
+app.use('/auth', authRouter);
 //404
 app.all('*', render404.render404Page);
 

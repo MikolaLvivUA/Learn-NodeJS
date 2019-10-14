@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         user_id: {
             type: DataTypes.INTEGER,
+            allowNull: false,
         },
         square: {
             type: DataTypes.DECIMAL,
@@ -30,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         price: {
-            type: DataTypes.DOUBLE,
+            type: DataTypes.DECIMAL,
             allowNull: false,
             validate: {
                 notNull:{
