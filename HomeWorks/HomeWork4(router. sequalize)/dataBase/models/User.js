@@ -10,9 +10,12 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             allowNull: false,
             validate: {
+                isEmail: {
+                    msg: 'Please enter correct email'
+                },
                 notNull: {
                     msg: 'Please enter your email'
-                },
+                }
             }
         },
         name: {
