@@ -18,9 +18,9 @@ module.exports = async (req, res, next) => {
             throw new Error(`User with ID ${user_id} is not present`)
         }
 
-        console.log(isUserPresent.dataValues) // dataValues це корисне навантаження
+        console.log(isUserPresent.dataValues);// dataValues це корисне навантаження
 
-        [req.user] = isUserPresent; //передаєм наш результат пошуку в  наступний реквест витягуєм також деструктуризацієєю.
+        req.user = isUserPresent; //передаєм наш результат пошуку в  наступний реквест витягуєм також деструктуризацієєю.
         next(); //каже нам що все нормально можна переходити в наступний обробник.
 
     }catch (e) {
