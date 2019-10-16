@@ -3,5 +3,5 @@ const checkUserValidityMiddleWare = require('./check-user-validity');
 
 module.exports = {
   isUserPresentMiddleware,
-  checkUserValidityMiddleWare
+  checkUserValidityMiddleWare,
 };

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => { // створюєм функцію 
             foreignKey: true
         },
         square: {
-            type: DataTypes.DOUBLE,
+            type: DataTypes.DECIMAL,
             allowNull: false,
 
         },
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => { // створюєм функцію 
             type: DataTypes.STRING,
         },
         price: {
-            type: DataTypes.DOUBLE,
+            type: DataTypes.DECIMAL,
             allowNull: false,
         },
 

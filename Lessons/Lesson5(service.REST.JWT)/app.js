@@ -22,7 +22,7 @@ app.engine('.hbs', expHbs({
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'static'));
 
-const { userRouter, houseRouter } = require('./router');//підключєм наш роутер в апп файлі
+const { userRouter, houseRouter, authRouter} = require('./router');//підключєм наш роутер в апп файлі
 
 app.get('/', (req, res)=>{
     res.render('main')
@@ -34,6 +34,7 @@ app.get('/login', (req, res) => {
 
 app.use('/users', userRouter);//так ми викликаєм наш роутер
 app.use('/houses', houseRouter);
+app.use('/auth', authRouter);
 
 
 
