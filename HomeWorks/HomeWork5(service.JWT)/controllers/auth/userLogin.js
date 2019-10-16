@@ -1,7 +1,8 @@
 module.exports= (req, res) => {
     try {
-        const {id} = req.user;
-        res.redirect(`/users/${id}`);
+        const token = req.tokens;
+        res.json(token);
+
     }catch (e) {
         res.json(e.message)
     }

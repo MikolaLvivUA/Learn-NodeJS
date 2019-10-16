@@ -1,0 +1,1 @@
+module.exports.keyWords = require('./keyWords');
