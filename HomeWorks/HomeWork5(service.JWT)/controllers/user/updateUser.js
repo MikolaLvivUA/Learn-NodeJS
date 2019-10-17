@@ -1,4 +1,5 @@
 const {userService} = require('../../service');
+const {userValidators} = require('../../validators');
 
 module.exports = async (req, res) => {
     try {
@@ -6,9 +7,7 @@ module.exports = async (req, res) => {
         const updatingData = req.body;
         const {id} = req.user;
 
-        if(+userID !== id){
-            throw new Error (`It's not your user`)
-        }
+        userValidators.userAccessValidator(userID, id);
 
         await userService.updateUser(userID, updatingData);
 

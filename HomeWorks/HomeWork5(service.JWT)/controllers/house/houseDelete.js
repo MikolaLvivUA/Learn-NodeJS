@@ -1,4 +1,5 @@
 const {houseService} = require('../../service');
+const {userValidators} = require('../../validators');
 
 module.exports = async (req, res) => {
     try {
@@ -6,9 +7,7 @@ module.exports = async (req, res) => {
         const {id} = req.user;
         const {user_id} = req.house;
 
-        if (+user_id !== id) {
-            throw new Error(`It's not your house`);
-        }
+        userValidators.userAccessValidator(user_id, id);
 
         await houseService.deleteHouse(houseID);
 
