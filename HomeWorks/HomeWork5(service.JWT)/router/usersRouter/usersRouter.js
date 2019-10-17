@@ -1,11 +1,11 @@
 const router = require('express').Router();
 
-const {userMiddleware} = require('../../middleware');
+const {userMiddleware, tokenMiddleware} = require('../../middleware');
 const {user} = require('../../controllers');
-const {tokenMiddleware} = require('../../middleware');
 
 router.post('/', userMiddleware.newUserMiddleware, user.registerNewUser);
 router.get(`/:userID`, userMiddleware.presentUserCheck, user.getUserById);
+router.get(`/:userID/houses`, userMiddleware.getUserWithHousesMdwar, user.getUserWithHouses );
 
 router.put('/:userID',
     userMiddleware.presentUserCheck,
