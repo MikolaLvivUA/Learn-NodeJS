@@ -1,8 +1,20 @@
-module.exports = (req, res) => {
+const {houseService} = require('../../service');
+
+module.exports = async (req, res) => {
     try {
         const {houseID} = req.params;
+        const updatingData = req.body;
+        const {id} = req.user;
+        const {user_id} = req.house;
+
+        if (+user_id !== id) {
+            throw new Error(`It's not your house`)
+        }
+
+        await houseService.updateHouse(houseID, updatingData);
+
         res.redirect(`/houses/${houseID}`)
     } catch (e) {
-        res.json(e.message)
+        res.status(403).json(e.message);
     }
 };
