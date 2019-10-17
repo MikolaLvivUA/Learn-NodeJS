@@ -14,14 +14,14 @@ router.get(`/:houseID`,
 );
 
 router.put('/:houseID',
-    houseMiddleware.presentHouseCheck,
     tokenMiddleware.checkAccessTokenMiddleware,
+    houseMiddleware.presentHouseCheck,
     house.updateHouse
 );
 
 router.delete('/:houseID',
-    houseMiddleware.presentHouseCheck,
     tokenMiddleware.checkAccessTokenMiddleware,
+    houseMiddleware.presentHouseCheck,
     house.houseDelete
 );
 
