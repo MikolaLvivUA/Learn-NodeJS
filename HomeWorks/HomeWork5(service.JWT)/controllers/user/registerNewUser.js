@@ -1,11 +1,13 @@
-const {userService} = require('../../service');
+const {userService, emailService} = require('../../service');
 
 module.exports = async (req, res) => {
     try {
         const creatingData = req.body;
 
         const registeredUser = await userService.registerUser(creatingData);
-        const {id} = registeredUser;
+        const {id, email} = registeredUser;
+
+        await emailService.sendEmail(email);
 
         res.json(`Your user with id:${id} has been registered please login in`);
 
