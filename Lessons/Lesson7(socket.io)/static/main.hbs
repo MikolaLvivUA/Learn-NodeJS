@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<input type="text" id="text">
+<button id="btn">SEND</button>
+<br>
+<button id="joinRoom">JoinRoom</button>
+<input type="text" id="text_to_room">
+<button id="btn_to_room">SEND TO ROOM</button>
+
+<!--таким чином ми піідключаєм сокет до фронтенду-->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();//задаєм змінну socket яка дорівнює io() Як функція
+    const btn = document.getElementById('btn');
+    const text = document.getElementById('text');
+
+    const btn_to_room = document.getElementById('btn_to_room');
+    const text_to_room = document.getElementById('text_to_room');
+
+    const joinRoom = document.getElementById('joinRoom');
+
+    /*btn.onclick = () => {
+        socket.emit('test')//при натисканні на кнопку ми емітуєм подію тест
+    };*/
+
+    btn_to_room.onclick = () => {
+        socket.emit('msg', 'HELLO')//на клік ми емітуєм подію мсг до руми 222
+    };
+
+    joinRoom.onclick = () => {
+        socket.emit('joinroom', {room_id: `222`}) // при натисканні кнопки емітиться подія joinroom.
+    };
+
+    socket.on('msg_resp', (data) => {
+        console.log(data);
+    });
+
+    btn.onclick = () => {
+        socket.emit('message', text.value);//при натисканні на кнопку ми емітуєм подію message, і буде слат дані з інпута
+        text.value = '';
+    };
+    socket.on('respMessage', (resp) => {
+        const divka = document.createElement("div");
+        divka.innerText = `User: ${resp.id} \n Message: ${resp.data}`;
+        divka.style.border = `1px solid green`;
+        // console.log('FROM BE');// відповідно на фронті ми ловимо нашу подію з бекенду.
+        console.log(resp.id);//консолим на фронті дані з бекенду
+        console.log(resp.data);
+
+        document.body.appendChild(divka);
+
+    })
+
+    // socket.on('user_disc', data => {
+    //     const divka = document.createElement('div');
+    //
+    //     divka.style.border = `1px solid red`;
+    //     divka.style.padding = `5px`;
+    //     divka.innerText = `User: ${data.id} is disconnect`;
+    //
+    //     document.body.appendChild(divka);
+    // })
+</script>
+</body>
+</html>
